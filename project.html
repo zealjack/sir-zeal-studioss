@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project — Sir Zeal</title>
+<link rel="icon" type="image/jpeg" href="images/brand/logo.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.wrap{max-width:900px;}
+.hero{padding:64px 0 40px; border-bottom:none;}
+.hero .sub{color:var(--text-dim); font-size:17px; max-width:620px; margin-bottom:28px;}
+.hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:36px;}
+.status{display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--green);}
+.status::before{content:''; width:6px; height:6px; border-radius:50%; background:var(--green);}
+footer{padding:28px 0; text-align:center; color:var(--text-faint); font-size:13px;}
+footer .wrap{max-width:1180px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="mark"></span> Sir Zeal</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="systems.html">Systems</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="https://sirzealacademy.lovable.app" target="_blank" rel="noopener">Founder School</a></li>
+      <li><a href="portfolio.html" class="active">Portfolio</a></li>
+      <li><a href="blogs.html">Insights</a></li>
+      <li><a href="about-us.html">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="portfolio.html" class="back">← Back to Portfolio</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+    </div>
+  </nav>
+</header>
+
+<div id="content"></div>
+
+<footer><div class="wrap">© 2026 Sir Zeal. All rights reserved.</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="portfolio-data.js"></script>
+<script src="supabase-client.js"></script>
+<script>
+(async function(){
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const container = document.getElementById('content');
+
+  container.innerHTML = `<div class="wrap not-found"><p style="color:var(--text-faint); font-family:var(--font-mono);">Loading project…</p></div>`;
+
+  let project = null;
+  try{
+    project = await getProjectById(id);
+  }catch(e){
+    console.error('Failed to load project:', e);
+  }
+
+  if(!project){
+    container.innerHTML = `
+      <div class="wrap not-found">
+        <h1>Project not found</h1>
+        <p>This project may have been removed or the link is out of date.</p>
+        <a href="index.html#portfolio" class="btn btn-primary">Back to Portfolio</a>
+      </div>`;
+    document.title = "Project not found — Sir Zeal";
+    return;
+  }
+
+  document.title = project.title + " — Sir Zeal";
+
+  const paragraphs = project.description.split('\n\n').map(p => `<p>${p}</p>`).join('');
+
+  container.innerHTML = `
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">${project.category} · ${project.year}</div>
+        <h1>${project.title}</h1>
+        <p class="sub">${project.summary}</p>
+        <div class="hero-actions">
+          <a href="${project.liveUrl}" target="_blank" rel="noopener" class="btn btn-primary">Visit Live Site ↗</a>
+          <a href="index.html#portfolio" class="btn btn-ghost">All Projects</a>
+        </div>
+        <div class="meta-row">
+          <div><span>Status</span><b class="status">${project.status === 'live' ? 'Live' : 'In Progress'}</b></div>
+          <div><span>Role</span><b>${project.role || '—'}</b></div>
+          <div><span>Year</span><b>${project.year}</b></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <div class="thumb">
+        ${project.thumbnail ? `<img src="${project.thumbnail}" alt="${project.title} screenshot">` : `[ ${project.title} screenshot ]`}
+      </div>
+
+      <div class="body-copy">${paragraphs}</div>
+
+      <div class="features">
+        <h3>What this build includes</h3>
+        <ul>${project.features.map(f => `<li>${f}</li>`).join('')}</ul>
+      </div>
+
+      <div class="tags">${project.tags.map(t => `<span>${t}</span>`).join('')}</div>
+
+      <div class="cta-band">
+        <h3>Want something like this?</h3>
+        <p>Let's talk about what you're trying to build.</p>
+        <a href="https://wa.me/254702525643?text=Hi%20Sir%20Zeal%2C%20I%20saw%20${encodeURIComponent(project.title)}%20and%20want%20to%20talk%20about%20a%20project." class="btn btn-primary">Talk on WhatsApp</a>
+      </div>
+    </div>
+  `;
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="nav.js"></script>
+
+</body>
+</html>

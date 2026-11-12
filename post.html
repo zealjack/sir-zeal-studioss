@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post — Sir Zeal</title>
+<link rel="icon" type="image/jpeg" href="images/brand/logo.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.wrap{max-width:760px;}
+.hero{padding:56px 0 32px; border-bottom:none;}
+.post-meta{display:flex; gap:16px; align-items:center; font-family:var(--font-mono); font-size:12px; color:var(--text-faint); margin-bottom:18px;}
+.post-body p{color:var(--text-dim); font-size:17px; line-height:1.75; margin-bottom:22px;}
+footer{padding:28px 0; text-align:center; color:var(--text-faint); font-size:13px;}
+footer .wrap{max-width:1180px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="mark"></span> Sir Zeal</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="systems.html">Systems</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="https://academy.sirzeal.com" target="_blank" rel="noopener">Founder School</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="blogs.html" class="active">Insights</a></li>
+      <li><a href="about-us.html">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="blogs.html" class="back">← Back to Insights</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+    </div>
+  </nav>
+</header>
+
+<div id="content"></div>
+
+<footer><div class="wrap">© 2026 Sir Zeal. All rights reserved.</div></footer>
+
+<script src="blogs-data.js"></script>
+<script>
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const post = (typeof POSTS !== 'undefined') ? POSTS.find(p => p.id === id) : null;
+  const container = document.getElementById('content');
+
+  if(!post){
+    container.innerHTML = `
+      <div class="wrap not-found">
+        <h1>Post not found</h1>
+        <p>This post may have been removed or the link is out of date.</p>
+        <a href="blogs.html" class="btn btn-primary">Back to Insights</a>
+      </div>`;
+    document.title = "Post not found — Sir Zeal";
+    return;
+  }
+
+  document.title = post.title + " — Sir Zeal";
+
+  container.innerHTML = `
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">${post.category}</div>
+        <h1>${post.title}</h1>
+        <div class="post-meta"><span>${post.date}</span><span>·</span><span>Sir Zeal</span></div>
+      </div>
+    </section>
+    <div class="wrap">
+      <div class="thumb">
+        ${post.cover ? `<img src="${post.cover}" alt="${post.title}">` : `[ cover image ]`}
+      </div>
+      <div class="post-body">
+        ${post.body.map(p => `<p>${p}</p>`).join('')}
+      </div>
+      <div class="cta-band">
+        <h3>Want help applying this?</h3>
+        <p>Let's talk about what's actually possible for your build.</p>
+        <a href="index.html#contact" class="btn btn-primary">Get in Touch</a>
+      </div>
+    </div>
+  `;
+})();
+</script>
+
+<script src="nav.js"></script>
+
+</body>
+</html>

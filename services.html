@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Sir Zeal</title>
+<meta name="description" content="Web development, ecommerce builds, SEO, brand systems, automation, analytics, migrations, and ongoing support — every capability, on its own.">
+<link rel="icon" type="image/jpeg" href="images/brand/logo.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.svc-detail{padding:64px 0; border-top:1px solid var(--line); scroll-margin-top:90px;}
+.svc-detail:first-of-type{border-top:none;}
+.svc-detail-grid{display:grid; grid-template-columns:60px 1fr; gap:24px;}
+@media (max-width:640px){.svc-detail-grid{grid-template-columns:1fr;}}
+.svc-icon-lg{
+  width:52px; height:52px; border-radius:10px; background:var(--signal-dim);
+  display:flex; align-items:center; justify-content:center; color:var(--signal);
+  font-family:var(--font-mono); font-size:20px;
+}
+.svc-detail h3{font-size:22px; margin-bottom:10px;}
+.svc-detail p{color:var(--text-dim); font-size:15px; margin-bottom:16px; max-width:640px;}
+.svc-detail ul{display:grid; grid-template-columns:repeat(2,1fr); gap:8px; max-width:640px;}
+@media (max-width:560px){.svc-detail ul{grid-template-columns:1fr;}}
+.svc-detail li{font-size:14px; color:var(--text-dim); display:flex; gap:8px;}
+.svc-detail li::before{content:'✓'; color:var(--green); flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="mark"></span> Sir Zeal</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="systems.html">Systems</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="https://academy.sirzeal.com" target="_blank" rel="noopener">Founder School</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="blogs.html">Insights</a></li>
+      <li><a href="about-us.html">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="index.html#contact" class="btn btn-ghost">Get a Quote</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+    </div>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a> / Services</div>
+    <div class="eyebrow">What's under the hood</div>
+    <h1>Every capability, on its own.</h1>
+    <p class="sub">The Systems bundle these together for a fixed scope. If you already know exactly what you need, here's each one broken down individually.</p>
+  </div>
+</section>
+
+<section class="svc-detail" id="web-development">
+  <div class="wrap svc-detail-grid">
+    <div class="svc-icon-lg">◆</div>
+    <div>
+      <h3>Web Development</h3>
+      <p>Custom-built sites and platforms — never a drag-and-drop template wearing your logo. Every build starts from your actual workflow, not a theme's assumptions about it.</p>
+      <ul>
+        <li>Custom design, not a template</li>
+        <li>Built for speed and Core Web Vitals</li>
+        <li>Mobile-first responsive layouts</li>
+        <li>Clean, maintainable code handed over to you</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="svc-detail" id="ecommerce">
+  <div class="wrap svc-detail-grid">
+    <div class="svc-icon-lg">▲</div>
+    <div>
+      <h3>Ecommerce Builds</h3>
+      <p>Storefronts with local payment methods wired in from day one — because a beautiful store that can't take M-Pesa isn't finished.</p>
+      <ul>
+        <li>M-Pesa, WhatsApp, or card checkout</li>
+        <li>Product catalog and inventory structure</li>
+        <li>Cart recovery and order tracking</li>
+        <li>Built to scale as your catalog grows</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="svc-detail" id="seo">
+  <div class="wrap svc-detail-grid">
+    <div class="svc-icon-lg">●</div>
+    <div>
+      <h3>SEO & Discovery</h3>
+      <p>Local and product SEO so the right people find you before they find your competitor — not just technically correct SEO, but SEO tied to actual buying intent.</p>
+      <ul>
+        <li>Local SEO + Google Business Profile</li>
+        <li>Keyword-mapped page structure</li>
+        <li>Technical SEO audit and fixes</li>
+        <li>Ongoing rank tracking available</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="svc-detail" id="brand">
+  <div class="wrap svc-detail-grid">
+    <div class="svc-icon-lg">■</div>
+    <div>
+      <h3>Brand Systems</h3>
+      <p>Messaging and visual identity built to convert, not just to look nice in a portfolio — your brand's job is to make the sale easier, not just prettier.</p>
+      <ul>
+        <li>Messaging framework built around your buyer</li>
+        <li>Visual identity: logo, color, type system</li>
+        <li>Brand guidelines you can hand to anyone</li>
+        <li>Applied consistently across every touchpoint</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="svc-detail" id="automation">
+  <div class="wrap svc-detail-grid">
+    <div class="svc-icon-lg">◈</div>
+    <div>
+      <h3>Automation</h3>
+      <p>Booking flows, inquiry routing, and back-office systems that run themselves — so growth doesn't mean hiring someone just to manage inboxes.</p>
+      <ul>
+        <li>Booking and scheduling systems</li>
+        <li>Automated inquiry routing and follow-up</li>
+        <li>Internal dashboards for day-to-day ops</li>
+        <li>Integrations between the tools you already use</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="svc-detail" id="analytics">
+  <div class="wrap svc-detail-grid">
+    <div class="svc-icon-lg">▶</div>
+    <div>
+      <h3>Analytics Setup</h3>
+      <p>Know exactly where traffic, trust, and revenue are leaking — instead of guessing which parts of your funnel are actually working.</p>
+      <ul>
+        <li>Conversion and funnel tracking</li>
+        <li>Ads pixel setup (Meta, Google, TikTok)</li>
+        <li>Clear monthly reporting, not raw dashboards</li>
+        <li>Recommendations tied to what the data shows</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="svc-detail" id="migration">
+  <div class="wrap svc-detail-grid">
+    <div class="svc-icon-lg">◐</div>
+    <div>
+      <h3>Platform Migration</h3>
+      <p>Move off shaky hosting, outdated builders, or a developer who's gone quiet — without losing your data, rankings, or history in the process.</p>
+      <ul>
+        <li>Full content and data migration</li>
+        <li>SEO rankings preserved through the move</li>
+        <li>Zero-downtime cutover planning</li>
+        <li>Clean handover of everything, documented</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="svc-detail" id="support">
+  <div class="wrap svc-detail-grid">
+    <div class="svc-icon-lg">✦</div>
+    <div>
+      <h3>Ongoing Support</h3>
+      <p>Retainer-based maintenance so nothing breaks quietly — updates, monitoring, and small changes handled before they become real problems.</p>
+      <ul>
+        <li>Uptime and security monitoring</li>
+        <li>Regular updates and backups</li>
+        <li>Small content/design changes included</li>
+        <li>Priority response when something needs fixing</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <h2>Need a mix of these?</h2>
+    <p>Most real projects blend a few of these together — tell us what you're building and we'll scope it properly.</p>
+    <a href="index.html#contact" class="btn btn-primary">Get a Custom Quote</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-bottom" style="border-top:none; padding-top:0;">
+    <span>© 2026 Sir Zeal. All rights reserved.</span>
+    <div class="links">
+      <a href="systems.html">Systems</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>

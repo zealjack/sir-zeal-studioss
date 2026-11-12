@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights — Sir Zeal</title>
+<meta name="description" content="Notes on building systems that work — strategy, ecommerce, and founder thinking, no fluff.">
+<link rel="icon" type="image/jpeg" href="images/brand/logo.jpg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="mark"></span> Sir Zeal</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="systems.html">Systems</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="https://sirzealacademy.lovable.app" target="_blank" rel="noopener">Founder School</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="blogs.html" class="active">Insights</a></li>
+      <li><a href="about-us.html">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="index.html#contact" class="btn btn-ghost">Get in Touch</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+    </div>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a> / Insights</div>
+    <div class="eyebrow">Insights</div>
+    <h1>Notes on building systems that work.</h1>
+    <p class="sub">Short, practical write-ups on strategy, ecommerce, and building a real business — no fluff, no filler.</p>
+  </div>
+</section>
+
+<section class="page-section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="cat-tabs" id="blogFilters"></div>
+    <div class="blog-grid" id="blogGrid"></div>
+  </div>
+</section>
+
+<section class="newsletter">
+  <div class="wrap">
+    <div class="nl-panel">
+      <div>
+        <h3>Get systems delivered weekly.</h3>
+        <p>Actionable strategies, real examples, and templates — no spam, unsubscribe anytime.</p>
+      </div>
+      <div>
+        <form class="nl-form" id="nlForm">
+          <input type="text" id="nlName" placeholder="Your name" required>
+          <input type="email" id="nlEmail" placeholder="Email address" required>
+          <button type="submit" class="btn btn-primary" id="nlSubmit">Subscribe</button>
+        </form>
+        <p class="nl-note" id="nlNote">No spam. Unsubscribe with one click anytime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-bottom" style="border-top:none; padding-top:0;">
+    <span>© 2026 Sir Zeal. All rights reserved.</span>
+    <div class="links">
+      <a href="portfolio.html">Portfolio</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="blogs-data.js"></script>
+<script src="supabase-client.js"></script>
+<script>
+// Insights grid — local POSTS data (see blogs-data.js)
+(function(){
+  const grid = document.getElementById('blogGrid');
+  const filterBar = document.getElementById('blogFilters');
+  if(typeof POSTS === 'undefined' || POSTS.length === 0){
+    grid.innerHTML = '<div class="pf-empty">No posts yet — check back soon.</div>';
+    return;
+  }
+
+  const categories = ['All', ...new Set(POSTS.map(p => p.category))];
+  filterBar.innerHTML = categories.map((cat, i) =>
+    `<button class="chip ${i===0 ? 'active':''}" data-cat="${cat}">${cat}</button>`
+  ).join('');
+
+  function cardHtml(p){
+    return `
+      <div class="blog-card" onclick="window.location.href='post.html?id=${encodeURIComponent(p.id)}'">
+        <div class="blog-thumb">${p.cover ? `<img src="${p.cover}" alt="${p.title}" loading="lazy">` : `[ cover image ]`}</div>
+        <div class="blog-body">
+          <div class="tag">${p.category}</div>
+          <h4>${p.title}</h4>
+          <p>${p.excerpt}</p>
+          <span class="meta">${p.date}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderGrid(filter){
+    const items = filter === 'All' ? POSTS : POSTS.filter(p => p.category === filter);
+    grid.innerHTML = items.length ? items.map(cardHtml).join('') : '<div class="pf-empty">Nothing in this category yet.</div>';
+  }
+
+  filterBar.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    filterBar.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    renderGrid(btn.dataset.cat);
+  });
+
+  renderGrid('All');
+})();
+
+// Newsletter — real submit via Supabase
+document.getElementById('nlForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const btn = document.getElementById('nlSubmit');
+  const note = document.getElementById('nlNote');
+  const name = document.getElementById('nlName').value.trim();
+  const email = document.getElementById('nlEmail').value.trim();
+  btn.disabled = true; btn.textContent = 'Subscribing…'; note.textContent = '';
+  try{
+    await subscribeNewsletter(name, email);
+    note.textContent = "You're on the list. Welcome aboard.";
+    note.style.color = 'var(--green)';
+    this.reset();
+  }catch(err){
+    console.error('Newsletter signup failed:', err);
+    note.textContent = (err.message && err.message.includes('not configured'))
+      ? 'Signups aren\'t live yet — check back soon.'
+      : 'Something went wrong. Please try again.';
+    note.style.color = '#FF6B6B';
+  }finally{
+    btn.disabled = false; btn.textContent = 'Subscribe';
+  }
+});
+</script>
+
+<script src="nav.js"></script>
+
+</body>
+</html>
